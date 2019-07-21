@@ -1,9 +1,22 @@
 import java.awt.EventQueue;
-import java.awt.*;
+
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JButton;
+import java.awt.Color;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
+import javax.swing.JRadioButton;
+import javax.swing.JToggleButton;
+import javax.swing.JScrollBar;
+import javax.swing.JComboBox;
+import javax.swing.JCheckBox;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 
 public class Review_Form {
 	 
@@ -40,26 +53,49 @@ public class Review_Form {
 	     */
 	    private void initialize() {
 	        frame = new JFrame();
-	        frame.setBounds(100, 100, 730, 489);
+	        frame.setBounds(100, 100, 850, 700);
 	        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	        frame.getContentPane().setLayout(null);
 	        
 	        //Greetings, labels, instructions
+	        JLabel lblTitle_1 = new JLabel("Welcom to Sentiment Analysis of your Movie Review!");
+	        lblTitle_1.setBounds(90, 100, 350, 20);
+	        frame.getContentPane().add(lblTitle_1);
+
+		JLabel lblTitle_2 = new JLabel("Please enter your Movie Review:");
+	        lblTitle_2.setBounds(90, 140, 250, 20);
+	        frame.getContentPane().add(lblTitle_2);
 	        
-	        //Text-area to write reviews
-	        JLabel lbReview = new JLabel("Enter Review:");
-	        lbReview.setBounds(65, 162, 46, 14);
-	        frame.getContentPane().add(lbReview);
-	        JTextArea textArea_1 = new JTextArea();
-	        textArea_1.setBounds(126, 157, 212, 40);
-	        frame.getContentPane().add(textArea_1);
+	        JTextArea textArea = new JTextArea();
+	        textArea.setBounds(90, 170, 500, 200);
+	        frame.getContentPane().add(textArea);
+
+		JButton reviewSubmit = new JButton("Submit");
+	        reviewSubmit.setBackground(Color.RED);
+		reviewSubmit.setForeground(Color.WHITE);
+		reviewSubmit.setBounds(90, 380, 90, 25);
+		frame.getContentPane().add(reviewSubmit);
 	        
+		// Clear button below text box for user Movie Review
+		JButton btnClear = new JButton("Clear");
+		btnClear.setBounds(190, 380, 90, 25);
+		frame.getContentPane().add(btnClear);
+
+		reviewSubmit.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent arg0) {
+			if(textArea.getText().isEmpty())
+			    JOptionPane.showMessageDialog(null, "Please type a Movie Review");
+			else	
+			    JOptionPane.showMessageDialog(null, "Movie Review Submitted");
+		// Action Listener for clear button
+		        btnClear.addActionListener(new ActionListener() {
+			    public void actionPerformed(ActionEvent e) {
+				textArea.setText(null);
+			    }
+			});
+		    }
+		});
+
 	        //Radio button: switch from typing to uploading review files
-	      
-	 
-	       }
-	 
-	}	
-
-
-	
+	}
+}
