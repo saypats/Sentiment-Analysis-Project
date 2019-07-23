@@ -62,7 +62,7 @@ public class Review_Form {
 	        lblTitle_1.setBounds(90, 100, 350, 20);
 	        frame.getContentPane().add(lblTitle_1);
 
-		JLabel lblTitle_2 = new JLabel("Please enter your Movie Review:");
+		JLabel lblTitle_2 = new JLabel("Please enter in your Movie Review:");
 	        lblTitle_2.setBounds(90, 140, 250, 20);
 	        frame.getContentPane().add(lblTitle_2);
 	        
