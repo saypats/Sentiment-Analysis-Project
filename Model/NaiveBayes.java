@@ -1,16 +1,4 @@
-
-
-public class NaiveBayes {
-	
-	public String Process() {
-		return "";
-	}
-	
-	
-	public String returnResults()
-	{
-		return "";
-	}import java.io.BufferedReader;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -156,8 +144,4 @@ public class NaiveBayesClassifier {
 		System.out.println("\nAfter removing stopwords -->\n");
 		NBClassifier(true, train, test, vocab, stopword, true);
 	}
-}
-	
-
-
 }
