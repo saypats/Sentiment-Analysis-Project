@@ -77,7 +77,7 @@ public class Review_Form {
 		frame.getContentPane().add(reviewSubmit);
 
 		// Clear button below text box for user Movie Review
-		JButton btnClear = new JButton("Clear");
+		JButton btnClear = new JButton("Clear!");
 		btnClear.setBounds(190, 380, 90, 25);
 		frame.getContentPane().add(btnClear);
 
