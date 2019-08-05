@@ -213,10 +213,19 @@ import javax.swing.*;
                     
             }
         });
+        
+        //Run button action listener 
+        runButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//TO ADD CCODE HERE
+				
+			}
+		});
              
         btnClear.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             	textArea.setText(null);
+            	movieRatingTextField.setText(null);
             }
         });
       
