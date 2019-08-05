@@ -1,5 +1,4 @@
 package View;
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -12,23 +11,10 @@ import java.io.File;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
-//import javax.swing.JMenu;
-//import javax.swing.JMenuBar;
-//import javax.swing.JMenuItem;
-//import javax.swing.JTextArea;
-//import javax.swing.JRadioButton;
-//import javax.swing.JToggleButton;
-//import javax.swing.filechooser.FileSystemView;
-//import javax.swing.JScrollBar;
-//import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
-//import javax.swing.JCheckBox;
 import javax.swing.*;
- 
-//import javax.swing.JFrame;
-//import javax.swing.JLabel;
- 
-public class Review_Form extends JFrame{
+
+ public class Review_Form extends JFrame{
     
     private JFrame frame;
     private JTextArea textArea = new JTextArea();
@@ -39,7 +25,7 @@ public class Review_Form extends JFrame{
     private JLabel resultLabel;
     private JLabel typeOfReviewLabel;
     private JLabel accuracyLabel;
-    private JLabel polarityLabel;
+    //private JLabel polarityLabel;
     private JLabel movieRatingLabel;
     
     private JTextField typeOfReviewTextField = new JTextField(10);
@@ -76,6 +62,19 @@ public class Review_Form extends JFrame{
        lblTitle_2.setBounds(50, 90, 250, 20);
        panel.add(lblTitle_2);
       
+       //Movie Rating:
+       // Label for the Movie Rating of the Movie Review 
+       movieRatingLabel = new JLabel("Give a rating between 1 to 10 (1=lowest, 10=highest): ");
+       movieRatingLabel.setBounds(50, 130, 350, 20);
+       panel.add(movieRatingLabel);
+
+       // TextField for the Movie Rating of the Movie Review
+       movieRatingTextField = new JTextField(10);
+       movieRatingTextField.setBounds(50, 100, 50, 20);
+       panel.add(movieRatingTextField);
+            
+       
+       
         //JTextArea textArea = new JTextArea();
         textArea.setBounds(50, 120, 500, 200);
         textArea.setLineWrap(true);
@@ -144,26 +143,17 @@ public class Review_Form extends JFrame{
         accuracyTextField.setBounds(270, 545, 90, 20);
         panel.add(accuracyTextField);
  
-        // Label for the Polarity of the Movie Review
-        polarityLabel = new JLabel("Polarity (Strong/Weak): ");
-        polarityLabel.setBounds(50, 570, 300, 20);
-        panel.add(polarityLabel);
+//        // Label for the Polarity of the Movie Review
+//        polarityLabel = new JLabel("Polarity (Strong/Weak): ");
+//        polarityLabel.setBounds(50, 570, 300, 20);
+//        panel.add(polarityLabel);
  
-        // TextField for the polarity result of the Movie Review
-        polarityTextField = new JTextField(10);
-        polarityTextField.setBounds(270, 570, 90, 20);
-        panel.add(polarityTextField);
+//        // TextField for the polarity result of the Movie Review
+//        polarityTextField = new JTextField(10);
+//        polarityTextField.setBounds(270, 570, 90, 20);
+//        panel.add(polarityTextField);
               
-        // Label for the Movie Rating of the Movie Review
-        movieRatingLabel = new JLabel("Movie Rating: ");
-        movieRatingLabel.setBounds(50, 595, 300, 20);
-        panel.add(movieRatingLabel);
- 
-        // TextField for the Movie Rating of the Movie Review
-        movieRatingTextField = new JTextField(10);
-        movieRatingTextField.setBounds(270, 595, 90, 20);
-        panel.add(movieRatingTextField);
-             
+       
              
         // Just a test button to try and get data from Model... Remove later
         //JButton testButton = new JButton("TempTest");
@@ -210,22 +200,26 @@ public class Review_Form extends JFrame{
        return uReview;
        }
    
+       
+       public int getRating() {
+    	   uReview = movieRatingTextField.getText();
+       return Integer.parseInt(uReview);
+       }
+       /*
        public String getUploadPath() {
     	   return dataSetPath;
        }
+       */
        
-       
-       // Getter for the file directory of the movie review dataset...  not needed???
-/*       public JFileChooser getFileChooser() {
+       // Getter for the file directory of the movie review dataset... 
+       public JFileChooser getFileChooser() {
            return fileChooser;
        }
-*/
- 
        
        //*** Setters for the results of the UI
        // Meant to accept the verdict of the review.  Is it Positive or Negative...
-       public void setTypeOfReview(String reviewVerdict) {
-           typeOfReviewTextField.setText(reviewVerdict);
+       public void setTypeOfReview(String reviewType) {
+           typeOfReviewTextField.setText(reviewType);
        }
  
        // Meant to accept the accuracy of the Analysis
@@ -234,9 +228,9 @@ public class Review_Form extends JFrame{
        }
  
        // Meant to accept the polarity of the Analysis.  Strong or Weak..
-       public void setPolarity(String polarity) {
-           polarityTextField.setText(polarity);
-       }
+       //public void setPolarity(double d) {
+       //    polarityTextField.setText(d);
+       //}
        
        public void setMovieRating(double movieRating) {
     	   movieRatingTextField.setText(Double.toString(movieRating));
@@ -244,15 +238,15 @@ public class Review_Form extends JFrame{
       
        
        //*** Listeners for the 3 buttons which communicate with the Controller
-       void addTesterListener(ActionListener listenForTestButton) {
+       public void addTesterListener(ActionListener listenForTestButton) {
               testButton.addActionListener(listenForTestButton);
            }
       
-       void addSubmitListener(ActionListener listenForSubmitButton) {
+      public void addSubmitListener(ActionListener listenForSubmitButton) {
               submitButton.addActionListener(listenForSubmitButton);
        }
        
-       void addRunListener(ActionListener listenForUploadButton) {
+       public void addRunListener(ActionListener listenForUploadButton) {
     	   runButton.addActionListener(listenForUploadButton);// changed from uploadButton to runButton
        }
        
@@ -261,4 +255,10 @@ public class Review_Form extends JFrame{
        void displayErrorMessage(String errorMessage) {
         JOptionPane.showMessageDialog(this, errorMessage);
        }
+
+
+	public String getUploadPath() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
