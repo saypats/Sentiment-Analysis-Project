@@ -25,26 +25,29 @@ import javax.swing.*;
     private JLabel resultLabel;
     private JLabel typeOfReviewLabel;
     private JLabel accuracyLabel;
-    //private JLabel polarityLabel;
     private JLabel movieRatingLabel;
     
     private JTextField typeOfReviewTextField = new JTextField(10);
     private JTextField accuracyTextField = new JTextField(10);
-    private JTextField polarityTextField = new JTextField(10);
     private JTextField movieRatingTextField = new JTextField(10);
+    private JTextField posPathDirectory = new JTextField(10);
+    private JTextField negPathDirectory = new JTextField(10); 
    
     //*** TestButton will need to be removed once the Model is up and running
     //		The submit and Run Buttons will need to send the results to the UI
     //		once the analysis has been run...
-    private JButton testButton = new JButton("Tester");
+    //private JButton testButton = new JButton("Tester");
     //*****************************************************
     
     private JButton submitButton = new JButton("Submit"); 
-    private JButton uploadButton = new JButton("Uplaod");
+    private JButton uploadButton_pos = new JButton("Positive");
+    private JButton uploadButton_neg = new JButton("Negative");
     private JButton runButton = new JButton("Run");
     
-    private String dataSetPath;
+    private String dataSetPath_pos;
+    private String dataSetPath_neg;
     private String uReview;
+    private String rating;
    
     Review_Form(){
       
@@ -52,7 +55,7 @@ import javax.swing.*;
       
        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
        panel.setLayout(null);
-       this.setSize(850, 700);
+       this.setSize(750, 900);
       
        JLabel lblTitle_1 = new JLabel("Welcome to Sentiment Analysis of your Movie Review!");
        lblTitle_1.setBounds(50, 50, 350, 20);
@@ -84,62 +87,76 @@ import javax.swing.*;
                 JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         panel.add(textArea);
        
-        //JButton reviewSubmit = new JButton("Submit");
+        JButton reviewSubmit = new JButton("Submit");
         submitButton.setBackground(Color.RED);
         submitButton.setForeground(Color.WHITE);
-        submitButton.setBounds(50, 330, 90, 25);
+        submitButton.setBounds(50, 390, 90, 25);
         panel.add(submitButton);
  
         JButton btnClear = new JButton("Clear!");
-        btnClear.setBounds(150, 330, 90, 25);
+        btnClear.setBounds(150, 390, 90, 25);
         panel.add(btnClear);
              
         JLabel dashs = new JLabel("---------------------------------------------------------"
                + "--------------------------------------------------------------------");
-        dashs.setBounds(50, 380, 900, 10);
+        dashs.setBounds(50, 420, 900, 10);
         panel.add(dashs);
  
-        JLabel lblTitle_3 = new JLabel("Or, select a Movie Review Dataset.");
-        lblTitle_3.setBounds(50, 400, 300, 20);
+        JLabel lblTitle_3 = new JLabel("Or, select Movie Review Datasets.");
+        lblTitle_3.setBounds(50, 450, 300, 20);
         panel.add(lblTitle_3);
  
-        //JButton uploadButton = new JButton("Upload");
-        uploadButton.setBackground(Color.RED);
-        uploadButton.setForeground(Color.WHITE);
-        uploadButton.setBounds(50, 430, 90, 25);
-        panel.add(uploadButton);
-              
+        //Text field for Positive Directory Path
+        posPathDirectory = new JTextField(10);
+        posPathDirectory.setBounds(50, 480, 90, 20);
+        panel.add(posPathDirectory);              
+      //JButton uploadButton = new JButton("Positive"); Browse option
+        uploadButton_pos.setBackground(Color.RED);
+        uploadButton_pos.setForeground(Color.WHITE);
+        uploadButton_pos.setBounds(150, 480, 90, 25);
+        panel.add(uploadButton_pos);
+        
+        //Text field for Negative Directory Path
+        negPathDirectory = new JTextField(10);
+        negPathDirectory.setBounds(50, 520, 90, 20);
+        panel.add(negPathDirectory);   
+      //JButton uploadButton = new JButton("Negative");
+        uploadButton_neg.setBackground(Color.RED);
+        uploadButton_neg.setForeground(Color.WHITE);
+        uploadButton_neg.setBounds(150, 520, 90, 25);
+        panel.add(uploadButton_neg);
+          
+        //Run button for uploaded directory paths
         runButton.setBackground(Color.BLUE);
         runButton.setForeground(Color.WHITE);
-        runButton.setBounds(150, 430, 90, 25);
+        runButton.setBounds(50, 550, 90, 25);
         panel.add(runButton);
              
         JLabel dashs2 = new JLabel("---------------------------------------------------------"
                + "--------------------------------------------------------------------");
-        dashs2.setBounds(50, 480, 900, 10);
+        dashs2.setBounds(50, 600, 900, 10);
         panel.add(dashs2);
  
         resultLabel = new JLabel("Results: ");
-        resultLabel.setBounds(50, 500, 100, 20);
+        resultLabel.setBounds(50, 650, 100, 20);
         panel.add(resultLabel);
-             
-        typeOfReviewLabel = new JLabel("Type of Review (Positive/Negative): ");
-        typeOfReviewLabel.setBounds(50, 520, 300, 20);
-        panel.add(typeOfReviewLabel);
- 
+        
         // TextField for the type of result of the Movie (Positive/Negative)
+        typeOfReviewLabel = new JLabel("Type of Review (Positive/Negative): ");
+        typeOfReviewLabel.setBounds(50, 730, 300, 20);
+        panel.add(typeOfReviewLabel);
+        //TextField for sentiment type
         typeOfReviewTextField = new JTextField(10);
-        typeOfReviewTextField.setBounds(270, 520, 90, 20);
+        typeOfReviewTextField.setBounds(280, 730, 90, 20);
         panel.add(typeOfReviewTextField);
  
         // Label for the Accuracy of the Movie Review
         accuracyLabel = new JLabel("Accuracy: ");
-        accuracyLabel.setBounds(50, 545, 300, 20);
+        accuracyLabel.setBounds(50, 690, 300, 20);
         panel.add(accuracyLabel);
- 
         // TextField for the accuracy result of the Movie Review
         accuracyTextField = new JTextField(10);
-        accuracyTextField.setBounds(270, 545, 90, 20);
+        accuracyTextField.setBounds(280, 690, 90, 20);
         panel.add(accuracyTextField);
  
 //        // Label for the Polarity of the Movie Review
@@ -153,21 +170,35 @@ import javax.swing.*;
 //        panel.add(polarityTextField);
               
        
-             
-        // Just a test button to try and get data from Model... Remove later
-        //JButton testButton = new JButton("TempTest");
-        testButton.setBackground(Color.BLACK);
-        testButton.setForeground(Color.WHITE);
-        testButton.setBounds(400, 520, 120, 25);
-        panel.add(testButton);
-             
-        uploadButton.addActionListener(new ActionListener() {
+       
+        
+        //Upload Test files: Positive and Negative: Added code to select directory path
+        uploadButton_pos.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ae) {          	
+            	JFileChooser fileChooser = new JFileChooser();
+            	fileChooser.setCurrentDirectory(new java.io.File("."));
+                int returnValue = fileChooser.showOpenDialog(null);
+                fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+                fileChooser.setAcceptAllFileFilterUsed(false);
+                if(returnValue == JFileChooser.APPROVE_OPTION) {
+                    File selectedFile = fileChooser.getCurrentDirectory();
+                    dataSetPath_pos = selectedFile.getPath();
+                    posPathDirectory.setText(dataSetPath_pos);
+                }
+            }
+        });
+        
+        uploadButton_neg.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
             	JFileChooser fileChooser = new JFileChooser();
+            	fileChooser.setCurrentDirectory(new java.io.File("."));
                 int returnValue = fileChooser.showOpenDialog(null);
+                fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+                fileChooser.setAcceptAllFileFilterUsed(false);
                 if(returnValue == JFileChooser.APPROVE_OPTION) {
-                    File selectedFile = fileChooser.getSelectedFile();
-                    dataSetPath = selectedFile.getPath();
+                    File selectedFile = fileChooser.getCurrentDirectory();
+                    dataSetPath_neg = selectedFile.getPath();
+                    negPathDirectory.setText(dataSetPath_pos);
                 }
             }
         });
@@ -197,18 +228,22 @@ import javax.swing.*;
        public String getUserReview() {
     	   uReview = textArea.getText();
        return uReview;
-       }
-   
+       }   
        
        public int getRating() {
     	   uReview = movieRatingTextField.getText();
        return Integer.parseInt(uReview);
        }
-       /*
-       public String getUploadPath() {
-    	   return dataSetPath;
+       
+      
+       public String getPath_pos() {
+    	   return dataSetPath_pos;
        }
-       */
+       
+       public String getPath_neg() {
+    	   return dataSetPath_neg;
+       }
+       
        
        // Getter for the file directory of the movie review dataset... 
        public JFileChooser getFileChooser() {
@@ -225,22 +260,8 @@ import javax.swing.*;
        public void setAccuracy(double accuracy) {
            accuracyTextField.setText(Double.toString(accuracy));
        }
- 
-       // Meant to accept the polarity of the Analysis.  Strong or Weak..
-       //public void setPolarity(double d) {
-       //    polarityTextField.setText(d);
-       //}
+   
        
-       public void setMovieRating(double movieRating) {
-    	   movieRatingTextField.setText(Double.toString(movieRating));
-       }
-      
-       
-       //*** Listeners for the 3 buttons which communicate with the Controller
-       public void addTesterListener(ActionListener listenForTestButton) {
-              testButton.addActionListener(listenForTestButton);
-           }
-      
       public void addSubmitListener(ActionListener listenForSubmitButton) {
               submitButton.addActionListener(listenForSubmitButton);
        }
@@ -256,8 +277,5 @@ import javax.swing.*;
        }
 
 
-	public String getUploadPath() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 }
