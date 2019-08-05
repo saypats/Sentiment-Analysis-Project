@@ -58,25 +58,24 @@ import javax.swing.*;
        lblTitle_1.setBounds(50, 50, 350, 20);
        panel.add(lblTitle_1);
       
-       JLabel lblTitle_2 = new JLabel("Please enter in your Movie Review:");
-       lblTitle_2.setBounds(50, 90, 250, 20);
-       panel.add(lblTitle_2);
-      
        //Movie Rating:
        // Label for the Movie Rating of the Movie Review 
-       movieRatingLabel = new JLabel("Give a rating between 1 to 10 (1=lowest, 10=highest): ");
-       movieRatingLabel.setBounds(50, 130, 350, 20);
+       movieRatingLabel = new JLabel("Give a rating between 1 to 10 (1-lowest, 10-highest): ");
+       movieRatingLabel.setBounds(50, 100, 350, 20);
        panel.add(movieRatingLabel);
 
        // TextField for the Movie Rating of the Movie Review
        movieRatingTextField = new JTextField(10);
-       movieRatingTextField.setBounds(50, 100, 50, 20);
+       movieRatingTextField.setBounds(355, 100, 50, 20);
        panel.add(movieRatingTextField);
-            
        
-       
+       //Movie Review TextArea
+       JLabel lblTitle_2 = new JLabel("Please enter in your Movie Review:");
+       lblTitle_2.setBounds(50, 130, 250, 20);
+       panel.add(lblTitle_2); 
+              
         //JTextArea textArea = new JTextArea();
-        textArea.setBounds(50, 120, 500, 200);
+        textArea.setBounds(50, 155, 500, 200);
         textArea.setLineWrap(true);
         textArea.setWrapStyleWord(true);
         JScrollPane pane = new JScrollPane(textArea);
