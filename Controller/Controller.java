@@ -9,11 +9,11 @@ import java.awt.event.ActionListener;
 public class Controller {
       
        private Review_Form theView;
-       private Model theModel;
+       private Analysis theModel;
       
        // Constructor for the Controller.  TesterListener will need to be removed
        //	once the Model is up and running
-       public Controller(Review_Form theView, Model theModel) {
+       public Controller(Review_Form theView, Analysis theModel) {
     	   this.theView = theView;
     	   this.theModel = theModel;
     	   this.theView.addTesterListener(new addTesterListener());
@@ -22,12 +22,13 @@ public class Controller {
        }
       
        // This Listener is only temporary, will need to be removed when adding the Model
-       class addTesterListener implements ActionListener{
+     public class addTesterListener implements ActionListener{
               public void actionPerformed(ActionEvent e) {
-                     theView.setTypeOfReview(theModel.getReviewDecision());
+                     int rating = theView.getRating();
+					theView.setTypeOfReview(theModel.getReviewDecision(rating));
                      theView.setAccuracy(theModel.getAccuracy());
-                     theView.setPolarity(theModel.getPolarity());
-                     theView.setMovieRating(theModel.getMovieRating());
+                     //theView.setPolarity(theModel.getPolarity());
+                     //theView.setMovieRating(theModel.getMovieRating());
               }
        }
       
@@ -36,7 +37,8 @@ public class Controller {
        class addSubmitListener implements ActionListener{
               public void actionPerformed(ActionEvent e) {
                      String uR = theView.getUserReview();
-                     theModel.printReview(uR);
+                     int rating = theView.getRating();
+                     theModel.testSingle(uR, rating);
               }
        }
        
