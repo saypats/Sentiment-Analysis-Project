@@ -210,6 +210,13 @@ import javax.swing.*;
                     JOptionPane.showMessageDialog(null, "Please type a Movie Review");
                 else  
                     JOptionPane.showMessageDialog(null, "Movie Review Submitted");
+		    
+		// Added this little bit to make sure the User enters a rating between 1-10
+		int uMovieRating = Integer.parseInt(movieRatingTextField.getText());
+                if(uMovieRating > 10 || uMovieRating < 1) {
+                	JOptionPane.showMessageDialog(null, "Please enter a rating between 1-10");
+                	movieRatingTextField.setText(null);
+                }
                     
             }
         });
