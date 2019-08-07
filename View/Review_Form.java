@@ -158,19 +158,7 @@ import javax.swing.*;
         accuracyTextField = new JTextField(10);
         accuracyTextField.setBounds(280, 690, 90, 20);
         panel.add(accuracyTextField);
- 
-//        // Label for the Polarity of the Movie Review
-//        polarityLabel = new JLabel("Polarity (Strong/Weak): ");
-//        polarityLabel.setBounds(50, 570, 300, 20);
-//        panel.add(polarityLabel);
- 
-//        // TextField for the polarity result of the Movie Review
-//        polarityTextField = new JTextField(10);
-//        polarityTextField.setBounds(270, 570, 90, 20);
-//        panel.add(polarityTextField);
-              
-       
-       
+  
         
         //Upload Test files: Positive and Negative: Added code to select directory path
         uploadButton_pos.addActionListener(new ActionListener() {
@@ -210,22 +198,28 @@ import javax.swing.*;
                     JOptionPane.showMessageDialog(null, "Please type a Movie Review");
                 else  
                     JOptionPane.showMessageDialog(null, "Movie Review Submitted");
-		    
-		// Added this little bit to make sure the User enters a rating between 1-10
-		int uMovieRating = Integer.parseInt(movieRatingTextField.getText());
-                if(uMovieRating > 10 || uMovieRating < 1) {
-                	JOptionPane.showMessageDialog(null, "Please enter a rating between 1-10");
-                	movieRatingTextField.setText(null);
-                }
-                    
+                
+             // Added this little bit to make sure the User enters a rating between 1-10
+        		int uMovieRating = Integer.parseInt(movieRatingTextField.getText());
+                        if(uMovieRating > 10 || uMovieRating < 1) {
+                        	JOptionPane.showMessageDialog(null, "Please enter a rating between 1-10");
+                        	movieRatingTextField.setText(null);
+                        }                  
             }
         });
         
         //Run button action listener 
         runButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//TO ADD CCODE HERE
-				
+				if(movieRatingTextField.getText().isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Please enter movie rating");
+				}
+				else if(posPathDirectory.getText().isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Please provide path for positive reviews");
+				} 
+				else if(negPathDirectory.getText().isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Please provide path for negative reviews");
+				}				
 			}
 		});
              
@@ -246,9 +240,9 @@ import javax.swing.*;
        return uReview;
        }   
        
-       public int getRating() {
-    	   uReview = movieRatingTextField.getText();
-       return Integer.parseInt(uReview);
+       public String getRating() {
+    	   rating = movieRatingTextField.getText();
+       return rating;
        }
        
       
